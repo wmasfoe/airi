@@ -1,0 +1,64 @@
+[package]
+name = "stage-tamagotchi-tauri"
+version.workspace = true
+description = "AIRI — Tauri v2 desktop application"
+authors = ["Moeru AI <airi@moeru.ai>"]
+license = "MIT"
+repository = "https://github.com/moeru-ai/airi"
+edition = "2024"
+rust-version = "1.85.0"
+publish = false
+
+[lib]
+name = "stage_tamagotchi_tauri_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[features]
+default = ["core"]
+core = [
+  "plugin-mcp",
+  "plugin-rdev",
+  "plugin-window-pass-through",
+  "plugin-window-router-link",
+  "plugin-nspanel",
+]
+full = [
+  "core",
+  "plugin-audio-transcription",
+  "plugin-audio-vad",
+]
+plugin-mcp = ["dep:tauri-plugin-mcp"]
+plugin-rdev = ["dep:tauri-plugin-rdev"]
+plugin-window-pass-through = ["dep:tauri-plugin-window-pass-through-on-hover"]
+plugin-window-router-link = ["dep:tauri-plugin-window-router-link"]
+plugin-audio-transcription = ["dep:tauri-plugin-ipc-audio-transcription-ort"]
+plugin-audio-vad = ["dep:tauri-plugin-ipc-audio-vad-ort"]
+plugin-nspanel = ["dep:tauri-nspanel"]
+
+[dependencies]
+tauri = { version = "2.3.1", features = ["macos-private-api"] }
+tauri-plugin-shell = "2"
+tauri-plugin-http = "2"
+tauri-plugin-fs = "2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+log = "0.4"
+specta = { version = "=2.0.0-rc.22", features = ["derive", "serde_json"] }
+tauri-specta = { version = "=2.0.0-rc.21", features = ["derive", "typescript"] }
+specta-typescript = "0.0.9"
+tokio = { version = "1", features = ["time", "sync"] }
+
+# NSPanel support (macOS only, behind feature flag)
+tauri-nspanel = { git = "https://github.com/ahkohd/tauri-nspanel", branch = "v2.1", optional = true }
+tauri-plugin-window-state = "2"
+
+# Workspace plugins (optional, behind feature flags)
+tauri-plugin-mcp = { workspace = true, optional = true }
+tauri-plugin-rdev = { workspace = true, optional = true }
+tauri-plugin-window-pass-through-on-hover = { workspace = true, optional = true }
+tauri-plugin-window-router-link = { workspace = true, optional = true }
+tauri-plugin-ipc-audio-transcription-ort = { workspace = true, optional = true }
+tauri-plugin-ipc-audio-vad-ort = { workspace = true, optional = true }
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }

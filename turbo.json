@@ -7,6 +7,14 @@
     "@proj-airi/electron-vueuse#build": {
       "dependsOn": ["@proj-airi/electron-eventa#build"],
       "outputs": ["dist/**"]
+    },
+    "@proj-airi/stage-tamagotchi-tauri#build": {
+      "dependsOn": [
+        "@proj-airi/stage-ui#build",
+        "@proj-airi/i18n#build",
+        "@proj-airi/ui#build"
+      ],
+      "outputs": ["src-tauri/target/**"]
     }
   }
 }

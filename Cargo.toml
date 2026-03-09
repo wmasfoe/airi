@@ -1,5 +1,6 @@
 [workspace]
 members = [
+  "apps/stage-tamagotchi-tauri/src-tauri",
   "crates/tauri-plugin-ipc-audio-transcription-ort",
   "crates/tauri-plugin-ipc-audio-vad-ort",
   "crates/tauri-plugin-mcp",

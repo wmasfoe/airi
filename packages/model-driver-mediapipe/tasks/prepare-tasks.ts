@@ -84,10 +84,17 @@ for (const { key, source, outputPath } of taskTargets) {
     console.log(`MediaPipe vision task asset for ${key} already exists at ${outputPath}, skipping download.`)
     continue
   }
-  await downloadAsset(key, source, outputPath)
+  try {
+    await downloadAsset(key, source, outputPath)
 
-  if (!await isUsableFile(outputPath))
-    throw new Error(`Failed to ensure MediaPipe vision task asset for ${key}: missing or empty file at ${outputPath}`)
+    if (!await isUsableFile(outputPath))
+      throw new Error(`Failed to ensure MediaPipe vision task asset for ${key}: missing or empty file at ${outputPath}`)
+  }
+  catch (error) {
+    console.warn(`\n⚠️  Could not download MediaPipe asset for "${key}". This may be due to network restrictions.`)
+    console.warn(`   You can manually download it from:\n   ${source}`)
+    console.warn(`   And place it at:\n   ${outputPath}\n`)
+  }
 }
 
 await fs.mkdir(wasmOutputDir, { recursive: true })

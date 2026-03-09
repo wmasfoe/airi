@@ -1,0 +1,40 @@
+{
+  "name": "@proj-airi/tauri-eventa",
+  "type": "module",
+  "version": "0.9.0-alpha.1",
+  "private": true,
+  "description": "Eventa adapter for Tauri IPC — maps eventa contracts to Tauri invoke/listen/emit",
+  "author": {
+    "name": "Moeru AI Project AIRI Team",
+    "email": "airi@moeru.ai",
+    "url": "https://github.com/moeru-ai"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moeru-ai/airi.git",
+    "directory": "packages/tauri-eventa"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./adapter": "./src/adapter.ts",
+    "./contracts": "./src/contracts/index.ts",
+    "./package.json": "./package.json"
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "dev": "echo 'no build needed — consumed via source'",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@moeru/eventa": "^1.0.0-beta.1",
+    "@tauri-apps/api": "^2.5.0"
+  },
+  "devDependencies": {
+    "tsdown": "^0.17.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  }
+}
